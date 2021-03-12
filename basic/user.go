@@ -1,6 +1,8 @@
 package basic
 
-// User is simeple user.
+import "errors"
+
+// User is simple user.
 type User struct {
 	name  string
 	age   uint
@@ -29,7 +31,11 @@ func (u *User) GetPoint(point uint) {
 
 // Purchase user spend some point.
 func (u *User) Purchase(item *Item) error {
+	if u.point < item.cost {
+		return errors.New("포인트가 상품보다 적습니다.")
+	}
 	u.point -= item.cost
+	return nil
 }
 
 // Item is item that can be sale.
